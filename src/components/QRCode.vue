@@ -48,13 +48,16 @@ export default {
   data () {
     return {
       tableData: [],
-      selectIndex: ''
+      selectIndex: '',
+      aleterErr: false
     }
   },
   methods: {
     handleSelectionChange (selection) {
       if (selection[0] !== undefined) {
         this.selectIndex = selection[0].id
+      } else {
+        this.selectIndex = ''
       }
     },
 
@@ -69,6 +72,11 @@ export default {
     },
 
     getQRCode () {
+      console.log('selectIndex:' + this.selectIndex)
+      if (this.selectIndex === '') {
+        alert('请选择商品')
+        return
+      }
       let url = '/api/wxpay/native/' + this.selectIndex
       axios.post(url).then((reponse) => {
         console.log(reponse)
