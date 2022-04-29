@@ -53,6 +53,7 @@ export default {
     }
   },
   methods: {
+    // 选择器事件处理
     handleSelectionChange (selection) {
       if (selection[0] !== undefined) {
         this.selectIndex = selection[0].id
@@ -60,7 +61,7 @@ export default {
         this.selectIndex = ''
       }
     },
-
+    // 获取商品列表
     getTableData () {
       let url = '/api/product/list'
       this.tableData = []
@@ -70,14 +71,14 @@ export default {
         that.tableData = reponse.data.data.productList
       })
     },
-
+    // 获取对应商品的支付二维码
     getQRCode () {
       console.log('selectIndex:' + this.selectIndex)
       if (this.selectIndex === '') {
         alert('请选择商品')
         return
       }
-      let url = '/api/wxpay/native/' + this.selectIndex
+      let url = '/api/wx-pay/native/' + this.selectIndex
       axios.post(url).then((reponse) => {
         console.log(reponse)
         let opts = {
